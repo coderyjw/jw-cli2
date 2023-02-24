@@ -1,13 +1,13 @@
 import fse from "fs-extra";
 import path from "path";
 import { dirname } from "dirname-filename-esm";
+import { log } from "@coderyjw/utils";
 
 const __dirname = dirname(import.meta);
 const pkgPath = path.resolve(__dirname, "../package.json");
 const pkg = fse.readJsonSync(pkgPath);
 
 export default function createCLI(program) {
-
   // 命令注册
   program
     .name(Object.keys(pkg.bin)[0])
@@ -19,13 +19,13 @@ export default function createCLI(program) {
 
   // 监听未知的命令
   program.on("command:*", function (obj) {
-    console.error("未知的命令：" + obj[0]);
+    log.error("未知的命令：" + obj[0]);
   });
 
   // 监听 debug 选项
   program.on("option:debug", function () {
     if (program.opts().debug) {
-      console.log("开启调试模式");
+      log.verbose("debug", "开启调试模式");
     }
   });
 }
