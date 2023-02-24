@@ -1,11 +1,13 @@
 0 silly argv {
 0 silly argv   _: [ 'add' ],
-0 silly argv   globs: [ 'packages/init' ],
+0 silly argv   globs: [ 'packages/utils' ],
 0 silly argv   lernaVersion: '6.4.1',
 0 silly argv   '$0': 'C:\\Program Files\\nodejs\\node_modules\\lerna\\cli.js',
-0 silly argv   pkg: 'packages/command'
+0 silly argv   pkg: 'url-node'
 0 silly argv }
 1 notice cli v6.4.1
 2 verbose rootPath D:\Study\demo\jw-cli
-3 error Error: An unknown git error occurred
-3 error     at makeError (C:\Users\yjw\AppData\Roaming\nvm\v16.17.0\node_modules\lerna\node_modules\@npmcli\git\lib\make-error.js:28:13)
+3 error HttpErrorGeneral: 404 Not Found - GET https://registry.npmjs.org/url-node - Not found
+3 error     at C:\Users\yjw\AppData\Roaming\nvm\v16.17.0\node_modules\lerna\node_modules\npm-registry-fetch\lib\check-response.js:95:15
+3 error     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+3 error     at async RegistryFetcher.packument (C:\Users\yjw\AppData\Roaming\nvm\v16.17.0\node_modules\lerna\node_modules\pacote\lib\registry.js:92:19)

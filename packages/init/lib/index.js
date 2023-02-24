@@ -1,5 +1,11 @@
 import Command from "@coderyjw/command";
 import { log } from "@coderyjw/utils";
+import createTemplate from "./createTemplate.js";
+import downloadTemplate from "./downloadTemplate.js";
+import installTemplate from "./installTemplate.js";
+
+
+
 
 class InitCommand extends Command {
   get command() {
@@ -19,7 +25,12 @@ class InitCommand extends Command {
   }
 
   async action([name, opts]) {
-    log.verbose("init", `我要创建的模板名称为${name}，传入了这些参数`, opts);
+    // 1. 选择项目模板，生成项目信息
+    const selectedTemplate = await createTemplate(name, opts);
+    // 2. 下载项目模板值缓存目录
+    await downloadTemplate(selectedTemplate);
+    // 3. 安装项目模板至目录
+    await installTemplate(selectedTemplate, opts);
   }
 
   preAction() {}
