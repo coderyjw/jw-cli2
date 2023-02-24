@@ -1,4 +1,4 @@
 import isDebug from "./isDebug.js";
-import log from "./log.js";
+import log, { printErrorLog } from "./log.js";
 
-export { log, isDebug };
+export { log, isDebug, printErrorLog };
