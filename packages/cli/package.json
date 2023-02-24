@@ -22,6 +22,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@coderyjw/init": "^0.0.0",
     "@coderyjw/utils": "^0.0.0",
     "commander": "^10.0.0",
     "dirname-filename-esm": "^1.1.1",
