@@ -1,6 +1,6 @@
 {
   "name": "@coderyjw/command",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "一个通用的 Command 类",
   "author": "叶继伟 <yejw6@asiainfo.com>",
   "homepage": "",

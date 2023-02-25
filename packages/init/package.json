@@ -1,6 +1,6 @@
 {
   "name": "@coderyjw/init",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "jw-cli脚手架 init 命令",
   "author": "叶继伟 <yejw6@asiainfo.com>",
   "homepage": "",
@@ -18,8 +18,8 @@
     "test": "node ./__tests__/init.test.js"
   },
   "dependencies": {
-    "@coderyjw/command": "^0.0.0",
-    "@coderyjw/utils": "^0.0.0",
+    "@coderyjw/command": "^1.0.0",
+    "@coderyjw/utils": "^1.0.0",
     "execa": "^7.0.0",
     "ora": "^6.1.2",
     "path-exists": "^5.0.0"
