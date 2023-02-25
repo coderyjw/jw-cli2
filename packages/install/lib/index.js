@@ -265,10 +265,42 @@ class InstallCommand extends Command {
         `下载模板成功：${this.selectedProject}` +
           (this.selectedTag ? `（${this.selectedTag}）` : "")
       );
+      await this.installDependencies();
+      await this.runRepo();
     } catch (err) {
       spinner.stop();
       printErrorLog(err);
     }
+  }
+
+  async installDependencies() {
+    const spinner = ora(
+      `正在安装依赖：${this.selectedProject}` +
+        (this.selectedTag ? `（${this.selectedTag}）` : "")
+    ).start();
+    try {
+      const ret = await this.gitAPI.installDependencies(
+        process.cwd(),
+        this.selectedProject,
+        this.selectedTag
+      );
+      spinner.stop();
+      if (ret) {
+        log.success(
+          `依赖安装安装成功：${this.selectedProject}` +
+            (this.selectedTag ? `（${this.selectedTag}）` : "")
+        );
+      } else {
+        log.error("依赖安装失败");
+      }
+    } catch (err) {
+      spinner.stop();
+      printErrorLog(err);
+    }
+  }
+
+  async runRepo() {
+    await this.gitAPI.runRepo(process.cwd(), this.selectedProject);
   }
 }
 
