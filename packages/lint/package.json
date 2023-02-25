@@ -1,0 +1,23 @@
+{
+  "name": "@coderyjw/lint",
+  "version": "0.0.0",
+  "description": "jw-cli脚手架 lint 命令",
+  "author": "叶继伟 <yejw6@asiainfo.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "type": "module",
+  "scripts": {
+    "test": "node ./__tests__/lint.test.js"
+  },
+  "dependencies": {
+    "@coderyjw/command": "^0.0.0"
+  }
+}
