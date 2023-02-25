@@ -53,4 +53,8 @@ export default class Gitee extends GitServer {
   getTags(fullName) {
     return this.get(`/repos/${fullName}/tags`);
   }
+
+  getRepoUrl(fullName) {
+    return `https://gitee.com/${fullName}.git`;
+  }
 }

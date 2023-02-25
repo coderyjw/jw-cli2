@@ -1,3 +1,4 @@
+import ora from "ora";
 import Command from "@coderyjw/command";
 import {
   chooseGitPlatForm,
@@ -5,6 +6,7 @@ import {
   makeList,
   makeInput,
   log,
+  printErrorLog,
 } from "@coderyjw/utils";
 
 const PREV_PAGE = "prev_page";
@@ -30,6 +32,8 @@ class InstallCommand extends Command {
     await this.searchGitAPI();
     log.verbose("selectedProject", this.selectedProject);
     log.verbose("selectedTag", this.selectedTag);
+
+    await this.downloadRepo();
   }
 
   async generateGitAPI() {
@@ -191,36 +195,39 @@ class InstallCommand extends Command {
 
   async doSelectTags() {
     let tagsListChoices = [];
+    let tagsList;
     if (this.platForm === "github") {
       const params = {
         page: this.tagPage,
         per_page: this.tagPerPage,
       };
       log.verbose("search tags params", this.selectedProject, params);
-      const tagsList = await this.gitAPI.getTags(this.selectedProject, params);
+      tagsList = await this.gitAPI.getTags(this.selectedProject, params);
       tagsListChoices = tagsList.map((item) => ({
         name: item.name,
         value: item.name,
       }));
-      if (tagsList.length > 0) {
-        tagsListChoices.push({
-          name: "下一页",
-          value: NEXT_PAGE,
-        });
-      }
-      if (this.tagPage > 1) {
-        tagsListChoices.unshift({
-          name: "上一页",
-          value: PREV_PAGE,
-        });
-      }
     } else {
-      const tagsList = await this.gitAPI.getTags(this.selectedProject);
       log.verbose("search tags params", this.selectedProject);
+      tagsList = await this.gitAPI.getTags(this.selectedProject);
       tagsListChoices = tagsList.map((item) => ({
         name: item.name,
         value: item.name,
       }));
+    }
+    if (tagsList.length === 0) return;
+
+    if (tagsList.length > 0) {
+      tagsListChoices.push({
+        name: "下一页",
+        value: NEXT_PAGE,
+      });
+    }
+    if (this.tagPage > 1) {
+      tagsListChoices.unshift({
+        name: "上一页",
+        value: PREV_PAGE,
+      });
     }
     const selectedTag = await makeList({
       message: "请选择tag",
@@ -244,6 +251,24 @@ class InstallCommand extends Command {
   async nextTags() {
     this.tagPage++;
     await this.doSelectTags();
+  }
+
+  async downloadRepo() {
+    const spinner = ora(
+      `正在下载：${this.selectedProject}` +
+        (this.selectedTag ? `（${this.selectedTag}）` : "")
+    ).start();
+    try {
+      await this.gitAPI.cloneRepo(this.selectedProject, this.selectedTag);
+      spinner.stop();
+      log.success(
+        `下载模板成功：${this.selectedProject}` +
+          (this.selectedTag ? `（${this.selectedTag}）` : "")
+      );
+    } catch (err) {
+      spinner.stop();
+      printErrorLog(err);
+    }
   }
 }
 

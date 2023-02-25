@@ -1,5 +1,6 @@
 import { homedir } from "os";
 import path from "path";
+import { execa } from "execa";
 import { pathExistsSync } from "path-exists";
 import fse from "fs-extra";
 import { makePassword } from "../lib/inquirer.js";
@@ -34,5 +35,12 @@ export default class GitServer {
 
   async getToken() {
     return await makePassword({ message: "请输入 token 信息" });
+  }
+
+  cloneRepo(fullName, tag) {
+    if (tag) {
+      return execa("git", ["clone", this.getRepoUrl(fullName), "-b", tag]);
+    }
+    return execa("git", ["clone", this.getRepoUrl(fullName)]);
   }
 }

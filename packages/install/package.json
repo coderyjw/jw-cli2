@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@coderyjw/command": "^0.0.0",
-    "@coderyjw/utils": "^0.0.0"
+    "@coderyjw/utils": "^0.0.0",
+    "ora": "^6.1.2"
   }
 }
